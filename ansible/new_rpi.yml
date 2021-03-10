@@ -105,5 +105,24 @@
         state: present
     - name: set hostname
       shell: "raspi-config nonint do_hostname {{ target_hostname }}"
+
+    - name: Disable system swap
+      become: True
+      command: "swapoff -a"
+
+    - name: Disable system swap
+      become: True
+      command: "dphys-swapfile swapoff"
+      failed_when: false
+
+    - name: Remove current swaps from fstab
+      become: True
+      lineinfile:
+        dest: /etc/fstab
+        regexp: '(?i)^([^#][\S]+\s+(none|swap)\s+swap.*)'
+        line: '# \1'
+        backrefs: yes
+        state: present
+
     - name: reboot
       shell: "reboot"
