@@ -12,6 +12,11 @@
 - hosts: new_rpi
   become: True
   tasks:
+    - name: Update apt-get repo and cache
+      apt:
+        upgrade: yes
+        update_cache: yes
+
     - name: install prerequisite software
       apt:
         pkg:
@@ -19,7 +24,6 @@
           - git
           - htop
         state: present
-        update_cache: yes
 
     - name: Create user
       user:
@@ -89,6 +93,14 @@
       - "cgroup_enable=cpuset"
       - "cgroup_memory=1"
       - "cgroup_enable=memory"
+
+    - name: Decrease GPU memory size
+      lineinfile:
+        dest: /boot/config.txt
+        regexp: "^#?gpu_mem"
+        line: "gpu_mem=16"
+        insertafter: EOF
+        state: present
 
     - name: set timezone
       command: "timedatectl set-timezone {{ target_timezone }}"
