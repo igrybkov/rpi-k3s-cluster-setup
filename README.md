@@ -10,3 +10,4 @@
 8. Configure RPi by running `./configure-rpi.py --hostname k3s-worker1 --ip 192.168.50.101`. When it will ask for password, use `raspberry`. Don't forget to replace hostname and IP with your values. For additional arguments, call the command with `--help` flag: `./configure-rpi.py --help`
 9. Run `make-cluster.py` to setup cluster and workers: `./make-cluster.py --user illia --server 192.168.50.100 --worker 192.168.50.101 --worker 192.168.50.102 --worker 192.168.50.103`
 10. Check your nodes: ```KUBECONFIG=`pwd`/kubeconfig kubectl get node -o wide```
+10. (Optional) Copy cluster configuration: `cp ./kubeconfig ~/.kube/config`
