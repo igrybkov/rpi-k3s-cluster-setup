@@ -127,6 +127,12 @@
       command: "dphys-swapfile swapoff"
       failed_when: false
 
+    - name: Set dynamic swap file size to 0
+      ansible.builtin.lineinfile:
+        path: /etc/dphys-swapfile
+        regexp: '^CONF_SWAPSIZE='
+        line: CONF_SWAPSIZE=0
+
     - name: Remove current swaps from fstab
       become: True
       lineinfile:
