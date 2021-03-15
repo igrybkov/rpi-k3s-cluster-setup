@@ -84,6 +84,7 @@
         pkg:
           - nano
         state: absent
+
     - name: Enable container features
       replace:
         path: /boot/cmdline.txt

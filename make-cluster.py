@@ -54,7 +54,7 @@ if (os.path.isfile(os.path.join('./', 'k3sup'))):
 
 print("")
 print("Install k3s server")
-os.system("k3sup install --k3s-extra-args '--no-deploy traefik --no-deploy servicelb --disable-cloud-controller' --user % s --ip % s" %
+os.system("k3sup install --k3s-extra-args '--disable traefik --disable servicelb --disable-cloud-controller --disable local-storage' --user % s --ip % s" %
           (user, server))
 
 for worker in workers:
